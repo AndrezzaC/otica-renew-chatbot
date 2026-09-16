@@ -4,7 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+
     <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="icon" type="image/png" href="../static/images/icon/favicon-renew-512.png">
 
     <title>Início | Ótica Renew</title>
 </head>
@@ -13,7 +21,9 @@
     <header>
 
         <h1>
-            <img src="../static/images/icon/logo-otica-renew-vetorizada-final.svg" alt="Ótica Renew">
+            <a href="index.html">
+                <img src="../static/images/icon/logo-otica-renew-vetorizada-final.svg" alt="Ótica Renew">
+            </a>
         </h1>
 
         <nav>
@@ -30,46 +40,88 @@
     <main>
 
         <section class="hero-inicio">
-            <h2>Ótica Renew</h2>
+            
+            <div class="hero-conteudo">
 
-            <p>Renove sua imagem com a Ótica Renew.</p>
+                <h2><span>Ótica</span> Renew</h2>
 
-            <p>
-                Descubra os materiais, lentes e tratamentos ideais para a sua rotina de forma simples e transparente.
-            </p>
+                <p>Renove sua imagem com a Ótica Renew.</p>
 
-            <p>
-                Tem dúvidas sobre qual lente escolher? Acesse guias explicativos no nosso assistente virtual interativo ou explore nossas opções abaixo.
-            </p>
+                <p>
+                    Descubra os materiais, lentes e tratamentos ideais para a sua rotina de forma simples e transparente.
+                </p>
+            
+                <div class="hero-assistente">
+                
+                    <a href="#chatbot" class="hero-assistente-icone">
+                        <i class="fa-regular fa-message"></i>
+                    </a>
+
+                    <div>
+                        <h3>Tem dúvidas sobre qual lente escolher?</h3>
+
+                        <p>
+                            Acesse guias explicativos no nosso assistente virtual interativo ou explore nossas opções abaixo.
+                        </p>
+
+                    </div>
+
+                </div>
+            
+            </div>
+
+            <div class="hero-imagem">
+                <img src="../static/images/imagens/renew-armação-home.png" alt="Armação de óculos Renew">
+            </div>
+
         </section>
 
         <section class="solucoes-opticas">
             <h2>Explore nossas soluções ópticas</h2>
 
-            <article>
-                <h3>Lentes</h3>
-                <p>
-                    Visão simples, multifocais, ocupacionais e lentes de contato.
-                    Aprenda a identificar a melhor escolha para o seu grau.
-                </p>
-                <a href="produtos.html#lentes">Conhecer lentes</a>
-            </article>
+            <div class="solucoes-cards">
 
-            <article>
-                <h3>Tratamentos</h3>
-                <p>
-                    Tecnologia e proteção para seus olhos: antirreflexo, filtro azul, lentes fotocromáticas e a tecnologia Transitions.
-                </p>
-                <a href="produtos.html#tratamentos">Conhecer tratamentos</a>
-            </article>
+                <article>
 
-            <article>
-                <h3>Materiais</h3>
-                <p>
-                    Entenda as diferenças entre resina, policarbonato e alto índice para garantir lentes leves e resistentes.
-                </p>
-                <a href="produtos.html#materiais">Conhecer materiais</a>
-            </article>
+                    <div class="solucao-icone">
+                        <i class="fa-solid fa-glasses"></i>
+                    </div>    
+
+                        <h3>Lentes</h3>
+                            <p>
+                                Visão simples, multifocais, ocupacionais e lentes de contato.
+                                Aprenda a identificar a melhor escolha para o seu grau.
+                            </p>
+                        <a href="produtos.html#lentes">Conhecer lentes</a>
+                </article>
+
+                <article>
+
+                    <div class="solucao-icone">
+                        <i class="fa-regular fa-eye"></i>
+                    </div>
+
+                        <h3>Tratamentos</h3>
+                            <p>
+                                Tecnologia e proteção para seus olhos: antirreflexo, filtro azul, lentes fotocromáticas e a tecnologia Transitions.
+                            </p>
+                        <a href="produtos.html#tratamentos">Conhecer tratamentos</a>
+                </article>
+
+                <article>
+
+                    <div class="solucao-icone">
+                        <i class="fa-solid fa-gem"></i>
+                    </div>
+                    
+                        <h3>Materiais</h3>
+                            <p>
+                                Entenda as diferenças entre resina, policarbonato e alto índice para garantir lentes leves e resistentes.
+                            </p>
+                        <a href="produtos.html#materiais">Conhecer materiais</a>
+                </article>
+                
+            </div>
         </section>
 
         <section id="chatbot" class="chatbot-secao">
@@ -86,19 +138,31 @@
         </section>
 
         <section class="horario-inicio">
-            <h2>Horário de Atendimento</h2>
+            
+            <div class="horario-icone">
+                <i class="fa-regular fa-clock"></i>
+            </div>
 
-            <p>
+            <div>
+                <h2>Horário de Atendimento</h2>
+
+                <p>
                 Segunda a sexta, das 09h às 18h | Sábado, das 09h às 13h
-            </p>
+                </p>
 
-            <a href="contato.html">Ver informações de contato</a>
+                <a href="contato.html">Ver informações de contato</a>
+            </div>
+
         </section>
     </main>
 
     <footer>
         <p>&copy; 2026 Ótica Renew. Todos os direitos reservados.</p>
     </footer>
+
+    <a href="#" class="chatbot-flutuante">
+        <img src="../static/images/icon/chatbot-renew-icone.png" alt="Assistente virtual">
+    </a>
 
 </body>
 </html>
