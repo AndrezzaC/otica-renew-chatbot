@@ -866,3 +866,242 @@ footer {
 footer p {
     margin: 0;
 }
+
+/* responsividade */
+
+@media (max-width: 768px) {
+
+    body {
+        overflow-x: hidden;
+    }
+
+    header {
+        width: 90%;
+        margin: 15px auto;
+        padding: 12px 20px;
+        top: 15px;
+    }
+
+    header h1 {
+        position: static;
+    }
+
+    header h1 img {
+        width: 38px;
+    }
+
+    nav ul {
+        gap: 18px;
+    }
+
+    nav a {
+        font-size: 14px;
+    }
+
+    main {
+        width: 90%;
+        margin: 25px auto;
+    }
+
+    /* home */
+
+    .hero-inicio {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .hero-conteudo {
+        padding: 30px;
+    }
+
+    .hero-inicio h2 {
+        font-size: 30px;
+    }
+
+    .hero-imagem {
+        height: 280px;
+        padding: 0 6px 6px;
+    }
+
+    .hero-imagem img {
+        mask-image: none;
+    }
+
+    .solucoes-cards {
+        flex-direction: column;
+    }
+
+    .horario-inicio {
+        align-items: flex-start;
+    }
+
+    /* sobre */
+
+    .sobre-historia-conteudo {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .sobre-historia-imagem {
+        height: 260px;
+    }
+
+    .sobre-historia h2 {
+        font-size: 28px;
+    }
+
+    .sobre-titulo {
+        align-items: flex-start;
+    }
+
+    .diferencial-exame h2,
+    .nossos-servicos h2,
+    .sobre-chatbot h2 {
+        font-size: 24px;
+    }
+
+    /* produtos */
+
+    .produtos-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .produtos-secao h2 {
+        font-size: 28px;
+    }
+
+    .produto-chatbot-chamado {
+        padding: 25px 20px;
+    }
+
+    .produto-chatbot-chamado h2 {
+        font-size: 25px;
+    }
+
+    /* contato */
+
+    .contato-introducao h2 {
+        font-size: 30px;
+    }
+
+    .chatbot-acesso-rapido {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .canais-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .canais-atendimento > h2 {
+        font-size: 28px;
+    }
+
+    /* geral */
+
+    footer {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .chatbot-flutuante {
+        width: 65px;
+        height: 65px;
+        right: 18px;
+        bottom: 18px;
+    }
+
+    .chatbot-flutuante img {
+        width: 65px;
+        height: 65px;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    header {
+        width: 92%;
+        padding: 10px 15px;
+    }
+
+    header h1 img {
+        width: 34px;
+    }
+
+    nav ul {
+        gap: 12px;
+    }
+
+    nav a {
+        font-size: 12px;
+    }
+
+    main {
+        width: 92%;
+    }
+
+    .hero-conteudo {
+        padding: 25px;
+    }
+
+    .hero-inicio h2 {
+        font-size: 26px;
+    }
+
+    .hero-inicio > .hero-conteudo > p:first-of-type {
+        font-size: 18px;
+    }
+
+    .hero-imagem {
+        height: 220px;
+    }
+
+    .horario-inicio {
+        flex-direction: column;
+    }
+
+    .sobre-historia,
+    .diferencial-exame,
+    .nossos-servicos,
+    .sobre-chatbot {
+        padding: 25px;
+    }
+
+    .sobre-historia h2 {
+        font-size: 25px;
+    }
+
+    .sobre-historia-imagem {
+        height: 220px;
+    }
+
+    .contato-introducao h2 {
+        font-size: 27px;
+    }
+
+    .chatbot-acesso-rapido {
+        padding: 25px;
+    }
+
+    .produtos-secao h2 {
+        font-size: 26px;
+    }
+
+    .produto-chatbot-chamado h2 {
+        font-size: 23px;
+    }
+
+    .chatbot-flutuante {
+        width: 60px;
+        height: 60px;
+        right: 15px;
+        bottom: 15px;
+    }
+
+    .chatbot-flutuante img {
+        width: 60px;
+        height: 60px;
+    }
+}
