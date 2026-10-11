@@ -1,3 +1,6 @@
+<!-- habilita que o django localize o css, imagens, icones e js, ele avisa ao template que eu quero usar os recursos de arquivos estáticos do django -->
+<!-- os sinais de chaves e porcento servem para delimitar uma instrução que o django precisa executar ao processar o template -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -11,38 +14,33 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
 
-    <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="icon" type="image/png" href="../static/images/icon/favicon-renew-512.png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'images/icon/favicon-renew-512.png' %}">
 
     <title>Início | Ótica Renew</title>
 </head>
 <body>
 
     <header>
-
         <h1>
-            <a href="index.html">
-                <img src="../static/images/icon/logo-otica-renew-vetorizada-final.svg" alt="Ótica Renew">
+            <a href="{% url 'inicio' %}">
+                <img src="{% static 'images/icon/logo-otica-renew-vetorizada-final.svg' %}" alt="Ótica Renew">
             </a>
         </h1>
 
         <nav>
             <ul>
-                <li><a href="index.html">Início</a></li>
-                <li><a href="sobre.html">Sobre</a></li>
-                <li><a href="produtos.html">Produtos</a></li>
-                <li><a href="contato.html">Contato</a></li>
+                <li><a href="{% url 'inicio' %}">Início</a></li>
+                <li><a href="{% url 'sobre' %}">Sobre</a></li>
+                <li><a href="{% url 'produtos' %}">Produtos</a></li>
+                <li><a href="{% url 'contato' %}">Contato</a></li>
             </ul>
         </nav>
-
     </header>
 
     <main>
-
         <section class="hero-inicio">
-            
             <div class="hero-conteudo">
-
                 <h2><span>Ótica</span> Renew</h2>
 
                 <p>Renove sua imagem com a Ótica Renew.</p>
@@ -50,77 +48,66 @@
                 <p>
                     Descubra os materiais, lentes e tratamentos ideais para a sua rotina de forma simples e transparente.
                 </p>
-            
+
                 <div class="hero-assistente">
-                
                     <a href="#chatbot" class="hero-assistente-icone">
                         <i class="fa-regular fa-message"></i>
                     </a>
 
                     <div>
                         <h3>Tem dúvidas sobre qual lente escolher?</h3>
-
                         <p>
                             Acesse guias explicativos no nosso assistente virtual interativo ou explore nossas opções abaixo.
                         </p>
-
                     </div>
-
                 </div>
-            
             </div>
 
             <div class="hero-imagem">
-                <img src="../static/images/imagens/renew-armação-home.png" alt="Armação de óculos Renew">
+                <img src="{% static 'images/imagens/renew-armação-home.png' %}" alt="Armação de óculos Renew">
             </div>
-
         </section>
 
         <section class="solucoes-opticas">
             <h2>Explore nossas soluções ópticas</h2>
 
             <div class="solucoes-cards">
-
                 <article>
-
                     <div class="solucao-icone">
                         <i class="fa-solid fa-glasses"></i>
-                    </div>    
+                    </div>
 
-                        <h3>Lentes</h3>
-                            <p>
-                                Visão simples, multifocais, ocupacionais e lentes de contato.
-                                Aprenda a identificar a melhor escolha para o seu grau.
-                            </p>
-                        <a href="produtos.html#lentes">Conhecer lentes</a>
+                    <h3>Lentes</h3>
+                    <p>
+                        Visão simples, multifocais, ocupacionais e lentes de contato.
+                        Aprenda a identificar a melhor escolha para o seu grau.
+                    </p>
+                    <a href="{% url 'produtos' %}#lentes">Conhecer lentes</a>
                 </article>
 
                 <article>
-
                     <div class="solucao-icone">
                         <i class="fa-regular fa-eye"></i>
                     </div>
 
-                        <h3>Tratamentos</h3>
-                            <p>
-                                Tecnologia e proteção para seus olhos: antirreflexo, filtro azul, lentes fotocromáticas e a tecnologia Transitions.
-                            </p>
-                        <a href="produtos.html#tratamentos">Conhecer tratamentos</a>
+                    <h3>Tratamentos</h3>
+                    <p>
+                        Tecnologia e proteção para seus olhos: antirreflexo, filtro azul, lentes fotocromáticas e a tecnologia Transitions.
+                    </p>
+                    <a href="{% url 'produtos' %}#tratamentos">Conhecer tratamentos</a>
                 </article>
 
                 <article>
-
                     <div class="solucao-icone">
                         <i class="fa-solid fa-gem"></i>
                     </div>
-                    
-                        <h3>Materiais</h3>
-                            <p>
-                                Entenda as diferenças entre resina, policarbonato e alto índice para garantir lentes leves e resistentes.
-                            </p>
-                        <a href="produtos.html#materiais">Conhecer materiais</a>
+
+                    <h3>Materiais</h3>
+                    <p>
+                        Entenda as diferenças entre resina, policarbonato e alto índice para garantir lentes leves e resistentes.
+                    </p>
+                    <a href="{% url 'produtos' %}#materiais">Conhecer materiais</a>
                 </article>
-                
             </div>
         </section>
 
@@ -130,7 +117,8 @@
             <p>
                 Navegue pelo nosso menu interativo para consultar informações sobre tratamentos, materiais, exames e opções de lente de forma rápida.
             </p>
-            <p>    
+
+            <p>
                 Entenda tudo antes de fazer o seu orçamento, com o nosso assistente virtual!
             </p>
 
@@ -138,21 +126,17 @@
         </section>
 
         <section class="horario-inicio">
-            
             <div class="horario-icone">
                 <i class="fa-regular fa-clock"></i>
             </div>
 
             <div>
                 <h2>Horário de Atendimento</h2>
-
                 <p>
-                Segunda a sexta, das 09h às 18h | Sábado, das 09h às 13h
+                    Segunda a sexta, das 09h às 18h | Sábado, das 09h às 13h
                 </p>
-
-                <a href="contato.html">Ver informações de contato</a>
+                <a href="{% url 'contato' %}">Ver informações de contato</a>
             </div>
-
         </section>
     </main>
 
@@ -160,8 +144,8 @@
         <p>&copy; 2026 Ótica Renew. Todos os direitos reservados.</p>
     </footer>
 
-    <a href="#" class="chatbot-flutuante">
-        <img src="../static/images/icon/chatbot-renew-icone.png" alt="Assistente virtual">
+    <a href="#chatbot" class="chatbot-flutuante">
+        <img src="{% static 'images/icon/chatbot-renew-icone.png' %}" alt="Assistente virtual">
     </a>
 
 </body>

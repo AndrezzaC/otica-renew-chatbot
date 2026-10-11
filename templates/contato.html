@@ -1,42 +1,39 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
 
-    <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="icon" type="image/png" href="../static/images/icon/favicon-renew-512.png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'images/icon/favicon-renew-512.png' %}">
 
     <title>Contato | Ótica Renew</title>
 </head>
 <body>
-    
-    <header>
 
+    <header>
         <h1>
-            <a href="index.html">
-                <img src="../static/images/icon/logo-otica-renew-vetorizada-final.svg" alt="Ótica Renew">
+            <a href="{% url 'inicio' %}">
+                <img src="{% static 'images/icon/logo-otica-renew-vetorizada-final.svg' %}" alt="Ótica Renew">
             </a>
         </h1>
 
         <nav>
             <ul>
-                <li><a href="index.html">Início</a></li>
-                <li><a href="sobre.html">Sobre</a></li>
-                <li><a href="produtos.html">Produtos</a></li>
-                <li><a href="contato.html">Contato</a></li>
+                <li><a href="{% url 'inicio' %}">Início</a></li>
+                <li><a href="{% url 'sobre' %}">Sobre</a></li>
+                <li><a href="{% url 'produtos' %}">Produtos</a></li>
+                <li><a href="{% url 'contato' %}">Contato</a></li>
             </ul>
         </nav>
-
     </header>
-    
-    <main>
 
+    <main>
         <section class="contato-introducao">
             <h2>Entre em <strong>contato</strong></h2>
 
@@ -47,45 +44,38 @@
         </section>
 
         <section class="chatbot-acesso-rapido">
-
             <div class="contato-chatbot-icone">
                 <i class="fa-solid fa-comments"></i>
-            </div>            
+            </div>
 
             <div>
                 <h3>Atendimento Rápido e Sem Fila</h3>
-                    <p>
+                <p>
                     Quer tirar dúvidas sobre tipos de grau, materiais ou exames agora mesmo?
                     Acesse nosso assistente virtual interativo!
-                    </p>
-                <a href="index.html#chatbot" class="button-chatbot">Usar Assistente Virtual</a>
+                </p>
+                <a href="{% url 'inicio' %}#chatbot" class="button-chatbot">Usar Assistente Virtual</a>
             </div>
         </section>
-        
+
         <section class="canais-atendimento">
-
             <h2>Canais Diretos e Loja Física</h2>
-        
-            <div class="canais-cards">
 
+            <div class="canais-cards">
                 <article>
-                    
                     <div class="contato-icone">
                         <i class="fa-solid fa-location-dot"></i>
                     </div>
 
                     <h3>Endereço</h3>
-                        <p>
-                            Rua Doutor Feliciano Sodré, 215 - São Gonçalo, Centro - RJ
-                        </p>
-                    </article>
-            
+                    <p>Rua Doutor Feliciano Sodré, 215 - São Gonçalo, Centro - RJ</p>
+                </article>
+
                 <article>
-                    
                     <div class="contato-icone">
                         <i class="fa-solid fa-phone"></i>
                     </div>
-                    
+
                     <h3>Telefone e WhatsApp</h3>
                     <p>
                         <a href="tel:+552126070247">(21) 2607-0247</a>
@@ -100,54 +90,50 @@
                 </article>
 
                 <article>
-
                     <div class="contato-icone">
                         <i class="fa-solid fa-envelope"></i>
                     </div>
 
                     <h3>E-mail</h3>
-                        <p>
-                            <a href="mailto:oticarenew.sg@gmail.com">oticarenew.sg@gmail.com</a>
-                        </p>
+                    <p>
+                        <a href="mailto:oticarenew.sg@gmail.com">oticarenew.sg@gmail.com</a>
+                    </p>
                 </article>
 
                 <article>
-
                     <div class="contato-icone">
                         <i class="fa-brands fa-instagram"></i>
                     </div>
 
                     <h3>Instagram</h3>
-                        <p>
-                            <a href="https://www.instagram.com/oticasrenew/" target="_blank" rel="noopener noreferrer">Instagram Ótica Renew</a>
-                        </p>
+                    <p>
+                        <a href="https://www.instagram.com/oticasrenew/" target="_blank" rel="noopener noreferrer">
+                            Instagram Ótica Renew
+                        </a>
+                    </p>
                 </article>
 
                 <article>
-
                     <div class="contato-icone">
                         <i class="fa-solid fa-clock"></i>
                     </div>
 
                     <h3>Horário de atendimento</h3>
-                        <p>
-                            Segunda a sexta, das 09h às 18h.
-                            Sábado, das 09h às 13h.
-                        </p>
+                    <p>
+                        Segunda a sexta, das 09h às 18h.
+                        Sábado, das 09h às 13h.
+                    </p>
                 </article>
-
             </div>
-
         </section>
-        
     </main>
 
     <footer>
         <p>&copy; 2026 Ótica Renew. Todos os direitos reservados.</p>
     </footer>
 
-    <a href="#" class="chatbot-flutuante">
-        <img src="../static/images/icon/chatbot-renew-icone.png" alt="Assistente virtual">
+    <a href="{% url 'inicio' %}#chatbot" class="chatbot-flutuante">
+        <img src="{% static 'images/icon/chatbot-renew-icone.png' %}" alt="Assistente virtual">
     </a>
 
 </body>
