@@ -1,7 +1,8 @@
 
 from django.shortcuts import render
+from django.http import JsonResponse
+from .models import Informacao
 
-# o render recebe a solicitação do navegador e entrega o HTML correspondente
 
 # Exibe a página inicial do site.
 def inicio(request):
@@ -21,3 +22,22 @@ def produtos(request):
 # Exibe a página de Contato.
 def contato(request):
     return render(request, 'contato.html')
+
+
+# Consulta uma informação cadastrada no banco usando o ORM.
+def consultar_informacao(request, titulo):
+    informacao = Informacao.objects.select_related(
+        'categoria'
+    ).filter(titulo=titulo).first()
+
+    if informacao is None:
+        return JsonResponse(
+            {'erro': 'Informação não encontrada.'},
+            status=404
+        )
+
+    return JsonResponse({
+        'titulo': informacao.titulo,
+        'categoria': informacao.categoria.nome,
+        'resposta': informacao.resposta
+    })
