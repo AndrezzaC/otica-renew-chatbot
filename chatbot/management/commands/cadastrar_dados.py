@@ -7,278 +7,475 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
 
-        # -------------------------------------------------------------
-        # BIBLIOTECA DE CATEGORIAS E INFORMAÇÕES
-        # -------------------------------------------------------------
+        # Categorias e introduções
+        categorias = {
+            "Conhecer as lentes": (
+                "Conheça os tipos de lentes disponíveis e suas "
+                "características. Você pode consultar os modelos "
+                "de lentes, os tipos de grau e as lentes de contato."
+            ),
+            "Conhecer os tratamentos": (
+                "Os tratamentos das lentes oferecem diferentes "
+                "características para o uso dos óculos. Conheça as "
+                "opções disponíveis e entenda suas funções."
+            ),
+            "Conhecer os materiais": (
+                "Conheça os principais materiais utilizados na "
+                "fabricação das lentes e suas diferenças em "
+                "resistência, leveza e espessura."
+            ),
+            "Campo de visão": (
+                "As lentes multifocais possuem áreas destinadas "
+                "à visão de longe, intermediária e de perto. "
+                "Conheça as diferenças entre os campos de visão."
+            ),
+            "Exame de vista": (
+                "Na Ótica Renew, o exame de vista é gratuito e "
+                "pode ser realizado antes da compra dos óculos. "
+                "Confira os horários de atendimento."
+            ),
+            "Informações sobre a Ótica Renew": "",
+            "Quero fazer orçamento": (
+                "O chatbot não realiza orçamentos automaticamente, "
+                "mas pode ajudar você a conhecer os tipos de lentes, "
+                "materiais e tratamentos disponíveis.\n\n"
+                "Para solicitar um orçamento, entre em contato com "
+                "a equipe da Ótica Renew.\n\n"
+                "Você já sabe qual tipo de lente ou produto está procurando?"
+            ),
+            "Mensagens do chatbot": "",
+        }
 
-        # Categorias
-        categorias = [
-            "Conhecer as lentes",
-            "Conhecer os tratamentos",
-            "Conhecer os materiais",
-            "Campo de visão",
-            "Exame de vista",
-            "Informações sobre a Ótica Renew",
-            "Quero fazer orçamento",
-            "Mensagens do chatbot",
-        ]
+        objetos_categoria = {}
 
-        for nome in categorias:
-            Categoria.objects.get_or_create(nome=nome)
+        for nome, introducao in categorias.items():
+            categoria, _ = Categoria.objects.update_or_create(
+                nome=nome,
+                defaults={"introducao": introducao}
+            )
 
-        # Informações
+            objetos_categoria[nome] = categoria
+
+        # Informações e opções do chatbot
         dados = [
 
-            # ---------------------------------------------------------
-            # MENSAGENS DO CHATBOT
-            # ---------------------------------------------------------
-
+            # Mensagens do chatbot
             {
                 "categoria": "Mensagens do chatbot",
                 "titulo": "bem_vindo",
-                "resposta": """Olá! Seja bem-vindo à Ótica Renew!
-Sou o assistente virtual de pré-atendimento e estou aqui para ajudar você a conhecer nossas opções.
-Selecione uma opção no menu para começar."""
+                "resposta": (
+                    "Olá! Seja bem-vindo à Ótica Renew!\n"
+                    "Sou o assistente virtual de pré-atendimento "
+                    "e estou aqui para ajudar você.\n"
+                    "Selecione uma opção no menu para começar."
+                ),
             },
             {
                 "categoria": "Mensagens do chatbot",
                 "titulo": "opcao_invalida",
-                "resposta": """Não entendi sua resposta. Por favor, selecione uma das opções disponíveis no menu para continuarmos seu atendimento."""
+                "resposta": (
+                    "Não entendi sua resposta. Por favor, selecione "
+                    "uma das opções disponíveis no menu."
+                ),
             },
             {
                 "categoria": "Mensagens do chatbot",
                 "titulo": "encerramento",
-                "resposta": """Agradecemos por entrar em contato com a Ótica Renew!
-Esperamos ter ajudado. Estamos à disposição para atender você novamente quando precisar."""
+                "resposta": (
+                    "Agradecemos por entrar em contato com a "
+                    "Ótica Renew!\n"
+                    "Esperamos ter ajudado. Estamos à disposição "
+                    "quando precisar."
+                ),
             },
 
-            # ---------------------------------------------------------
-            # CONHECER AS LENTES
-            # ---------------------------------------------------------
-
-            {
-                "categoria": "Conhecer as lentes",
-                "titulo": "lentes_introducao",
-                "resposta": """Conheça os tipos de lentes disponíveis e descubra as características de cada opção para encontrar a que melhor atende às suas necessidades.
-Selecione uma opção abaixo para saber mais."""
-            },
+            # Conhecer as lentes
             {
                 "categoria": "Conhecer as lentes",
                 "titulo": "lentes_visao_simples",
-                "resposta": """As lentes de visão simples, também chamadas de monofocais, corrigem uma única distância: perto ou longe.
-São indicadas para quem precisa de correção em apenas uma dessas distâncias, conforme a prescrição visual."""
+                "resposta": (
+                    "As lentes de visão simples, também chamadas "
+                    "de monofocais, corrigem uma única distância: "
+                    "perto ou longe.\n"
+                    "São indicadas para quem precisa de correção "
+                    "em apenas uma dessas distâncias, conforme "
+                    "a prescrição visual."
+                ),
             },
             {
                 "categoria": "Conhecer as lentes",
                 "titulo": "lentes_multifocal",
-                "resposta": """As lentes multifocais permitem enxergar de longe, em distâncias intermediárias, como o computador, e de perto, como o celular, usando um único par de óculos.
-A adaptação varia de pessoa para pessoa, e o preço depende da marca, do modelo e das tecnologias da lente.
-Acesse a opção Campo de visão para entender melhor como funciona a visão através dessas lentes."""
+                "resposta": (
+                    "As lentes multifocais permitem enxergar de "
+                    "longe, em distâncias intermediárias, como "
+                    "o computador, e de perto, como o celular, "
+                    "usando um único par de óculos.\n"
+                    "A adaptação varia de pessoa para pessoa, e "
+                    "o preço depende da marca, do modelo e das "
+                    "tecnologias da lente.\n"
+                    "Consulte também a opção Campo de visão para "
+                    "entender melhor como essas lentes funcionam."
+                ),
             },
             {
                 "categoria": "Conhecer as lentes",
                 "titulo": "lentes_ocupacional",
-                "resposta": """As lentes ocupacionais são feitas para oferecer conforto na visão de perto e em distâncias intermediárias, como ao usar o computador ou ler documentos.
-Podem ser úteis para quem precisa dessas distâncias no dia a dia, mas geralmente não são destinadas à visão de longe."""
+                "resposta": (
+                    "As lentes ocupacionais são feitas para oferecer "
+                    "conforto na visão de perto e em distâncias "
+                    "intermediárias, como ao usar o computador ou "
+                    "ler documentos.\n"
+                    "Podem ser úteis para quem precisa dessas "
+                    "distâncias no dia a dia, mas geralmente não "
+                    "são destinadas à visão de longe."
+                ),
             },
             {
                 "categoria": "Conhecer as lentes",
                 "titulo": "lentes_tipos_grau",
-                "resposta": """Selecione uma opção para conhecer os diferentes tipos de grau e entender suas características."""
-            },
-            {
-                "categoria": "Conhecer as lentes",
-                "titulo": "lentes_miopia",
-                "resposta": """A miopia dificulta enxergar objetos distantes com nitidez, enquanto a visão de perto costuma ser mais clara.
-Pode ser corrigida com lentes específicas para esse tipo de grau."""
-            },
-            {
-                "categoria": "Conhecer as lentes",
-                "titulo": "lentes_hipermetropia",
-                "resposta": """A hipermetropia pode dificultar a visão de perto e causar cansaço visual durante atividades como leitura.
-Sua correção é feita com lentes adequadas ao grau de cada pessoa."""
-            },
-            {
-                "categoria": "Conhecer as lentes",
-                "titulo": "lentes_atigmatismo",
-                "resposta": """O astigmatismo pode causar visão embaçada ou distorcida tanto de perto quanto de longe.
-A correção utiliza lentes específicas para compensar a irregularidade na curvatura da córnea ou do cristalino."""
-            },
-            {
-                "categoria": "Conhecer as lentes",
-                "titulo": "lentes_presbiopia",
-                "resposta": """A presbiopia é uma alteração natural da visão relacionada à idade, que dificulta o foco em objetos próximos.
-Pode ser corrigida com lentes adequadas, como lentes para leitura ou multifocais."""
+                "resposta": (
+                    "Os tipos de grau apresentam características "
+                    "diferentes. Selecione uma opção para conhecer "
+                    "cada um deles."
+                ),
             },
             {
                 "categoria": "Conhecer as lentes",
                 "titulo": "lentes_contato",
-                "resposta": """As lentes de contato são uma alternativa prática aos óculos.
-A BioView e a Bausch + Lomb oferecem diferentes modelos para correção visual, com opções que atendem a diferentes necessidades de grau.
-A escolha deve considerar as características dos olhos e a orientação de um oftalmologista."""
+                "resposta": (
+                    "As lentes de contato são uma alternativa prática "
+                    "aos óculos.\n"
+                    "A BioView e a Bausch + Lomb oferecem diferentes "
+                    "modelos para correção visual, com opções que "
+                    "atendem a diferentes necessidades de grau.\n"
+                    "A escolha deve considerar as características "
+                    "dos olhos e a orientação de um oftalmologista."
+                ),
             },
 
-            # ---------------------------------------------------------
-            # CAMPO DE VISÃO
-            # ---------------------------------------------------------
+            # Tipos de grau
+            {
+                "categoria": "Conhecer as lentes",
+                "pai": "lentes_tipos_grau",
+                "titulo": "lentes_miopia",
+                "resposta": (
+                    "A miopia dificulta enxergar objetos distantes "
+                    "com nitidez, enquanto a visão de perto costuma "
+                    "ser mais clara.\n"
+                    "Sua correção utiliza lentes negativas, que "
+                    "geralmente são mais finas no centro e mais "
+                    "espessas nas bordas."
+                ),
+            },
+            {
+                "categoria": "Conhecer as lentes",
+                "pai": "lentes_tipos_grau",
+                "titulo": "lentes_hipermetropia",
+                "resposta": (
+                    "A hipermetropia pode dificultar a visão de perto "
+                    "e causar cansaço visual durante atividades "
+                    "como leitura.\n"
+                    "Sua correção utiliza lentes positivas, que "
+                    "geralmente são mais espessas no centro e mais "
+                    "finas nas bordas."
+                ),
+            },
+            {
+                "categoria": "Conhecer as lentes",
+                "pai": "lentes_tipos_grau",
+                "titulo": "lentes_astigmatismo",
+                "resposta": (
+                    "O astigmatismo pode causar visão embaçada ou "
+                    "distorcida tanto de perto quanto de longe.\n"
+                    "A correção utiliza lentes cilíndricas, que "
+                    "compensam diferenças na curvatura da córnea "
+                    "ou do cristalino. A prescrição também informa "
+                    "um eixo de orientação entre 0° e 180°."
+                ),
+            },
+            {
+                "categoria": "Conhecer as lentes",
+                "pai": "lentes_tipos_grau",
+                "titulo": "lentes_presbiopia",
+                "resposta": (
+                    "A presbiopia é uma alteração natural da visão "
+                    "relacionada à idade, geralmente percebida a "
+                    "partir dos 40 anos. Ela dificulta o foco em "
+                    "objetos próximos.\n"
+                    "Isso acontece porque o cristalino perde "
+                    "gradualmente sua flexibilidade. A correção "
+                    "pode ser feita com óculos para perto ou lentes "
+                    "multifocais, conforme a necessidade visual.\n"
+                    "Com o passar dos anos, a adição para perto "
+                    "pode aumentar."
+                ),
+            },
 
+            # Campo de visão
             {
                 "categoria": "Campo de visão",
-                "titulo": "campo_visao_introducao",
-                "resposta": """As lentes multifocais possuem áreas para enxergar de longe, em distâncias intermediárias, como o computador, e de perto, como o celular.
-A distribuição dessas áreas varia conforme o modelo da lente. A adaptação pode variar de pessoa para pessoa."""
+                "titulo": "campo_visao_convencional",
+                "resposta": (
+                    "Nas lentes multifocais convencionais, o desenho "
+                    "do campo de visão é padronizado, com áreas "
+                    "destinadas à visão de longe, intermediária e "
+                    "de perto.\n"
+                    "O campo de visão é o mesmo para todos os usuários. "
+                    "O que muda é o grau da lente e as medidas de "
+                    "altura necessárias para a montagem, de acordo "
+                    "com as características de cada pessoa.\n"
+                    "Por serem lentes convencionais, geralmente "
+                    "apresentam um corredor visual mais estreito, "
+                    "podendo exigir um tempo de adaptação um pouco "
+                    "maior, que varia de pessoa para pessoa."
+                ),
             },
-
-            # ---------------------------------------------------------
-            # CONHECER OS TRATAMENTOS
-            # ---------------------------------------------------------
-
             {
-                "categoria": "Conhecer os tratamentos",
-                "titulo": "tratamentos_introducao",
-                "resposta": """Os tratamentos das lentes ajudam a melhorar o conforto visual e a proteção durante o uso dos óculos.
-Conheça as opções disponíveis e suas características para identificar quais podem atender melhor às suas necessidades.
-Selecione um tratamento para saber mais."""
+                "categoria": "Campo de visão",
+                "titulo": "campo_visao_digital",
+                "resposta": (
+                    "As lentes multifocais digitais utilizam a "
+                    "tecnologia Freeform, que permite desenvolver "
+                    "lentes personalizadas especificamente para "
+                    "cada pessoa.\n"
+                    "Diferentemente das lentes convencionais, "
+                    "as digitais são produzidas considerando "
+                    "características individuais, permitindo uma "
+                    "distribuição mais ampla e personalizada dos "
+                    "campos de visão, com corredores visuais "
+                    "melhor distribuídos e menos distorções laterais.\n"
+                    "Essa personalização proporciona maior conforto "
+                    "visual e pode facilitar a adaptação. Os "
+                    "laboratórios digitais também oferecem diferentes "
+                    "opções de corredores progressivos, permitindo "
+                    "escolher o desenho mais adequado às necessidades "
+                    "e à rotina de cada pessoa.\n"
+                    "Na Ótica Renew, nossa equipe pode apresentar "
+                    "essas opções e ajudar você a identificar "
+                    "o corredor visual mais adequado."
+                ),
             },
+
+            # Conhecer os tratamentos
             {
                 "categoria": "Conhecer os tratamentos",
                 "titulo": "tratamentos_filtro_antirreflexo",
-                "resposta": """O tratamento antirreflexo reduz os reflexos de luz na superfície das lentes, proporcionando uma visão mais confortável e melhorando a nitidez, especialmente em ambientes iluminados e durante o uso de telas."""
+                "resposta": (
+                    "O tratamento antirreflexo reduz os reflexos "
+                    "de luz na superfície das lentes, ajudando a "
+                    "proporcionar mais conforto visual e nitidez, "
+                    "especialmente em ambientes iluminados.\n"
+                    "Ele não deve ser confundido com o filtro "
+                    "de luz azul."
+                ),
             },
             {
                 "categoria": "Conhecer os tratamentos",
                 "titulo": "tratamentos_filtro_azul",
-                "resposta": """O tratamento com filtro azul ajuda a filtrar parte da luz azul emitida por telas e outras fontes luminosas.
-Sua utilidade depende das necessidades individuais, e não há evidências sólidas de que reduza o cansaço visual causado pelo uso de dispositivos digitais."""
+                "resposta": (
+                    "O tratamento com filtro azul bloqueia a luz "
+                    "nociva emitida por computadores, celulares e "
+                    "outros eletrônicos, protegendo os olhos no "
+                    "dia a dia. Ele ajuda a reduzir a fadiga ocular "
+                    "e o ressecamento, proporcionando mais conforto "
+                    "e bem-estar durante as horas em frente às telas."
+                ),
             },
             {
                 "categoria": "Conhecer os tratamentos",
                 "titulo": "tratamentos_fotocromatica",
-                "resposta": """As lentes fotocromáticas escurecem quando expostas à radiação ultravioleta e voltam a ficar mais claras em ambientes internos.
-São uma opção prática para quem deseja adaptar a tonalidade das lentes conforme as condições de iluminação."""
+                "resposta": (
+                    "As lentes fotocromáticas escurecem quando "
+                    "expostas à radiação ultravioleta e voltam "
+                    "a ficar mais claras em ambientes internos.\n"
+                    "A mudança de tonalidade leva algum tempo "
+                    "para acontecer. São uma opção prática para "
+                    "quem deseja adaptar as lentes às condições "
+                    "de iluminação."
+                ),
             },
             {
                 "categoria": "Conhecer os tratamentos",
                 "titulo": "tratamentos_transitions",
-                "resposta": """As lentes Transitions escurecem quando expostas à luz solar e voltam a ficar mais claras em ambientes internos.
-Essa tecnologia ajuda a proporcionar conforto visual em diferentes condições de iluminação e oferece proteção contra raios UV, conforme as especificações do produto."""
+                "resposta": (
+                    "As lentes Transitions contam com tecnologia "
+                    "avançada de escurecimento, que se adapta à "
+                    "luminosidade do ambiente: quanto mais intensa "
+                    "a claridade, mais escuras as lentes ficam. "
+                    "Em ambientes internos ou com menor luminosidade, "
+                    "elas clareiam novamente.\n"
+                    "Além de oferecer praticidade no dia a dia, "
+                    "as lentes proporcionam proteção contra os "
+                    "raios UVA e UVB e contam com filtro de luz "
+                    "azul incorporado à própria tecnologia da lente."
+                ),
             },
 
-            # ---------------------------------------------------------
-            # CONHECER OS MATERIAIS
-            # ---------------------------------------------------------
-
-            {
-                "categoria": "Conhecer os materiais",
-                "titulo": "materiais_introducao",
-                "resposta": """Conheça os principais materiais utilizados na fabricação das lentes, como resina, policarbonato e lentes de alto índice.
-Descubra as características de cada opção e suas diferenças em resistência, leveza e espessura.
-Selecione um material abaixo para saber mais."""
-            },
+            # Conhecer os materiais
             {
                 "categoria": "Conhecer os materiais",
                 "titulo": "materiais_resina",
-                "resposta": """As lentes de resina são leves e oferecem boa qualidade óptica, sendo uma opção comum para óculos de uso diário.
-São versáteis e podem receber diferentes tratamentos, conforme a necessidade do usuário."""
+                "resposta": (
+                    "As lentes de resina são leves e oferecem "
+                    "boa qualidade óptica, sendo uma opção comum "
+                    "para óculos de uso diário.\n"
+                    "São versáteis e podem receber diferentes "
+                    "tratamentos, conforme a necessidade do usuário."
+                ),
             },
             {
                 "categoria": "Conhecer os materiais",
                 "titulo": "materiais_policarbonato",
-                "resposta": """As lentes de policarbonato são leves e resistentes a impactos, sendo indicadas para quem busca maior segurança e conforto.
-São uma opção interessante para crianças, esportistas e pessoas que precisam de lentes mais resistentes."""
+                "resposta": (
+                    "As lentes de policarbonato são leves e "
+                    "resistentes a impactos, sendo indicadas para "
+                    "quem busca maior segurança e conforto.\n"
+                    "São uma opção interessante para crianças, "
+                    "esportistas e pessoas que precisam de lentes "
+                    "mais resistentes."
+                ),
             },
             {
                 "categoria": "Conhecer os materiais",
                 "titulo": "materiais_alto_indice",
-                "resposta": """As lentes de alto índice permitem corrigir o grau com lentes mais finas do que as convencionais em muitas situações.
-São uma opção para quem busca reduzir a espessura das lentes, dependendo do grau e do modelo escolhido."""
+                "resposta": (
+                    "As lentes de alto índice permitem corrigir "
+                    "o grau com lentes mais finas do que as "
+                    "convencionais em muitas situações.\n"
+                    "Existem diferentes índices, como 1.60, 1.67 "
+                    "e 1.74. A escolha depende do grau, da armação "
+                    "e das características da lente."
+                ),
             },
 
-            # ---------------------------------------------------------
-            # EXAME DE VISTA
-            # ---------------------------------------------------------
-
-            {
-                "categoria": "Exame de vista",
-                "titulo": "exame_introducao",
-                "resposta": """O exame de vista é fundamental para avaliar sua saúde visual e identificar possíveis necessidades de correção do grau.
-Na Ótica Renew, o exame é gratuito e pode ser realizado antes da compra dos óculos, permitindo que você conheça suas necessidades visuais antes de escolher suas lentes."""
-            },
+            # Exame de vista
             {
                 "categoria": "Exame de vista",
                 "titulo": "exame_horarios",
-                "resposta": """O atendimento médico para realização do exame de vista acontece de segunda a sexta-feira, das 9h às 17h, e às quartas-feiras, das 9h às 12h.
-O exame é gratuito e pode ser realizado antes da compra dos óculos.
-Os horários estão sujeitos a alterações devido a imprevistos."""
+                "resposta": (
+                    "O exame de vista é gratuito e pode ser realizado "
+                    "antes da compra dos óculos.\n\n"
+                    "Horários de atendimento:\n"
+                    "• Segunda, terça, quinta e sexta-feira: "
+                    "das 9h às 17h.\n"
+                    "• Quarta-feira: das 9h às 12h.\n\n"
+                    "Os horários estão sujeitos a alterações devido "
+                    "a imprevistos ou à disponibilidade da médica."
+                ),
             },
 
-            # ---------------------------------------------------------
-            # INFORMAÇÕES SOBRE A ÓTICA RENEW
-            # ---------------------------------------------------------
-
-            {
-                "categoria": "Informações sobre a Ótica Renew",
-                "titulo": "informacoes_introducao",
-                "resposta": """Conheça melhor a Ótica Renew e confira informações importantes sobre nosso atendimento, incluindo horários de funcionamento, endereço e formas de pagamento.
-Selecione uma das opções abaixo para consultar os detalhes e esclarecer suas dúvidas."""
-            },
+            # Informações sobre a Ótica Renew
             {
                 "categoria": "Informações sobre a Ótica Renew",
                 "titulo": "informacoes_horarios",
-                "resposta": """A Ótica Renew funciona de segunda a sexta-feira, das 9h às 18h, e aos sábados, das 9h às 13h. Aos domingos, a loja permanece fechada."""
+                "resposta": (
+                    "Horários de funcionamento da loja:\n"
+                    "• Segunda a sexta-feira: das 9h às 18h.\n"
+                    "• Sábado: das 9h às 13h.\n"
+                    "• Domingo: fechado."
+                ),
             },
             {
                 "categoria": "Informações sobre a Ótica Renew",
                 "titulo": "informacoes_endereco",
-                "resposta": """A Ótica Renew está localizada na Rua Dr. Feliciano Sodré, nº 215, Loja 18, no Centro de São Gonçalo, Rio de Janeiro.
-Você pode visitar nossa loja para conhecer nossos produtos, conferir as opções de lentes e armações e receber atendimento personalizado da nossa equipe."""
+                "resposta": (
+                    "Onde estamos?\n\n"
+                    "Ótica Renew\n"
+                    "Rua Dr. Feliciano Sodré, nº 215\n"
+                    "Loja 18 – Centro\n"
+                    "São Gonçalo – Rio de Janeiro\n\n"
+                    "Venha nos visitar! Nossa equipe está pronta "
+                    "para ajudar você a conhecer nossas opções "
+                    "de lentes, armações e tratamentos.\n\n"
+                    "Como chegar pelo Google Maps:\n"
+                    "https://www.google.com/maps/search/?api=1&query=Otica+Renew+Rua+Doutor+Feliciano+Sodre+215+Loja+18+Sao+Goncalo+RJ&query_place_id=ChIJ4YL1rf6bmQAR7OKx5jRhNhw"
+                ),
             },
             {
                 "categoria": "Informações sobre a Ótica Renew",
                 "titulo": "informacoes_pagamentos",
-                "resposta": """A Ótica Renew aceita dinheiro, Pix, cartões de débito e crédito.
-Para confirmar as opções disponíveis e as condições de parcelamento, consulte a equipe da loja."""
+                "resposta": (
+                    "Formas de pagamento aceitas:\n"
+                    "• Dinheiro.\n"
+                    "• Pix.\n"
+                    "• Cartão de débito.\n"
+                    "• Cartão de crédito.\n\n"
+                    "Para confirmar as opções disponíveis e as "
+                    "condições de parcelamento, consulte a equipe "
+                    "da loja."
+                ),
             },
 
-            # ---------------------------------------------------------
-            # QUERO FAZER ORÇAMENTO
-            # ---------------------------------------------------------
-
+            # Quero fazer orçamento
             {
                 "categoria": "Quero fazer orçamento",
-                "titulo": "orcamento_introducao",
-                "resposta": """O chatbot não realiza orçamentos automaticamente, mas pode ajudar você a conhecer os tipos de lentes, materiais e tratamentos disponíveis antes de realizar sua compra.
-Para solicitar um orçamento, entre em contato com a equipe da Ótica Renew.
-Você já sabe qual tipo de lente ou produto está procurando?"""
+                "titulo": "orcamento_positiva",
+                "resposta": (
+                    "Para solicitar seu orçamento, fale com a equipe "
+                    "da Ótica Renew pelo WhatsApp:\n"
+                    "https://wa.me/552126070247\n"
+                    "Nossa equipe estará à disposição para ajudar você!"
+                ),
             },
             {
                 "categoria": "Quero fazer orçamento",
                 "titulo": "orcamento_negativa",
-                "resposta": """Sem problemas! Vamos ajudar você a conhecer as opções disponíveis.
-Selecione a categoria desejada para descobrir qual produto ou serviço atende melhor às suas necessidades."""
-            },
-            {
-                "categoria": "Quero fazer orçamento",
-                "titulo": "orcamento_positiva",
-                "resposta": """Para solicitar seu orçamento, fale com a equipe da Ótica Renew pelo WhatsApp:
-https://wa.me/552126070247
-Nossa equipe estará à disposição para ajudar você!"""
+                "resposta": (
+                    "Sem problemas! Você pode continuar conhecendo "
+                    "as opções disponíveis ou voltar ao menu principal."
+                ),
             },
         ]
 
-        # Cria as informações novas e atualiza as existentes
+        # Remove os tipos de grau duplicados que estão sem um menu pai
+        Informacao.objects.filter(
+            categoria=objetos_categoria["Conhecer as lentes"],
+            titulo__in=[
+                "lentes_miopia",
+                "lentes_hipermetropia",
+                "lentes_astigmatismo",
+                "lentes_presbiopia"
+            ],
+            pai__isnull=True
+        ).delete()
+
+        # Cadastra ou atualiza as informações
         for item in dados:
-            categoria = Categoria.objects.get(
-                nome=item["categoria"]
-            )
+            categoria = objetos_categoria[item["categoria"]]
+
+            pai = None
+
+            if "pai" in item:
+                pai = Informacao.objects.get(
+                    categoria=categoria,
+                    titulo=item["pai"],
+                    pai__isnull=True
+                )
 
             Informacao.objects.update_or_create(
                 categoria=categoria,
                 titulo=item["titulo"],
+                pai=pai,
                 defaults={
                     "resposta": item["resposta"]
                 }
             )
+
+        # Remove as antigas introduções cadastradas como opções
+        titulos_antigos = [
+            "lentes_introducao",
+            "tratamentos_introducao",
+            "materiais_introducao",
+            "campo_visao_introducao",
+            "exame_introducao",
+            "informacoes_introducao",
+            "orcamento_introducao",
+            "lentes_atigmatismo"
+        ]
+
+        Informacao.objects.filter(
+            titulo__in=titulos_antigos
+        ).delete()
 
         self.stdout.write(
             self.style.SUCCESS(

@@ -165,10 +165,10 @@
             </p>
 
             <p>
-                Acesse o assistente virtual na página inicial e selecione o tópico que deseja entender!
+                Acesse o assistente virtual e selecione o tópico que deseja entender!
             </p>
 
-            <a href="{% url 'inicio' %}#chatbot" class="button-chatbot">
+            <a href="#" onclick="toggleChat(); return false;" class="button-chatbot">
                 Consultar no Assistente Virtual
             </a>
         </section>
@@ -178,9 +178,20 @@
         <p>&copy; 2026 Ótica Renew. Todos os direitos reservados.</p>
     </footer>
 
-    <a href="{% url 'inicio' %}#chatbot" class="chatbot-flutuante">
+    <a href="#" onclick="toggleChat(); return false;" class="chatbot-flutuante">
         <img src="{% static 'images/icon/chatbot-renew-icone.png' %}" alt="Assistente virtual">
     </a>
+
+    <div class="chat-container-interno" id="chat-caixa">
+        <div class="chat-header">
+            <span>Assistente Ótica Renew</span>
+            <button onclick="toggleChat()">✕</button>
+        </div>
+
+        <div id="chat-mensagens" class="chat-mensagens"></div>
+    </div>
+
+    <script src="{% static 'js/chatbot.js' %}"></script>
 
 </body>
 </html>

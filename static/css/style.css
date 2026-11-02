@@ -423,6 +423,18 @@ body::before{
     transition: 0.2s;
 }
 
+/* Estado do botão quando o chatbot está aberto */
+.chatbot-flutuante.ativo {
+    transform: scale(0.88);
+    background-color: rgba(242, 140, 24, 0.35);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+}
+
+/* Efeito ao passar o mouse quando aberto */
+.chatbot-flutuante.ativo:hover {
+    transform: scale(0.84);
+}
+
 .chatbot-flutuante img {
     width: 75px;
     height: 75px;
@@ -1018,6 +1030,169 @@ footer p {
     }
 }
 
+/* chatbot */
+
+/* Janela principal */
+.chat-container-interno {
+    display: none;
+    position: fixed;
+    right: 25px;
+    bottom: 110px;
+    width: 380px;
+    height: 520px;
+    max-height: calc(100vh - 140px);
+
+    background-color: var(--cor-fundo-secundario);
+    border: 1px solid rgba(242, 140, 24, 0.25);
+    border-radius: 20px;
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 2000;
+}
+
+/* Exibe a janela quando aberta */
+.chat-container-interno.ativo {
+    display: flex;
+}
+
+/* Cabeçalho */
+.chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 16px 20px;
+
+    background: linear-gradient(
+        135deg,
+        var(--laranja-principal),
+        #D67510
+    );
+
+    color: var(--branco);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+/* Botão fechar */
+.chat-header button {
+    width: 30px;
+    height: 30px;
+
+    border: none;
+    border-radius: 50%;
+
+    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--branco);
+
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Área das mensagens */
+.chat-mensagens {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    padding: 18px;
+    overflow-y: auto;
+}
+
+/* Balões de mensagem */
+.msg {
+    display: flex;
+    flex-direction: column;
+
+    width: fit-content;
+    max-width: 88%;
+
+    padding: 12px 15px;
+    border-radius: 14px;
+
+    font-size: 13px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    white-space: pre-line;
+}
+
+.msg.bot {
+    align-self: flex-start;
+
+    background-color: var(--branco);
+    color: var(--cor-texto);
+
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.msg.user {
+    align-self: flex-end;
+
+    background-color: var(--laranja-principal);
+    color: var(--branco);
+}
+
+/* Opções do chatbot */
+.chat-opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    width: 100%;
+    margin-top: 12px;
+}
+
+/* Botões das categorias */
+.btn-opcao {
+    width: 100%;
+    padding: 10px 12px;
+
+    background-color: var(--branco);
+    border: 1px solid #E5DCCF;
+    border-radius: 10px;
+
+    color: var(--cor-texto);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    text-align: left;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-opcao:hover {
+    border-color: var(--laranja-principal);
+    color: var(--laranja-principal);
+    background-color: #FFF8EE;
+}
+
+/* Botões de navegação */
+.btn-navegacao {
+    width: 100%;
+    padding: 9px 12px;
+
+    background-color: #F7E5CF;
+    border: 1px solid #E8CBAA;
+    border-radius: 9px;
+
+    color: var(--cor-texto);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-navegacao:hover {
+    background-color: #F2D5B5;
+    border-color: var(--laranja-principal);
+}
+
+/* Responsividade */
 
 @media (max-width: 480px) {
 
@@ -1103,5 +1278,52 @@ footer p {
     .chatbot-flutuante img {
         width: 60px;
         height: 60px;
+    }
+}
+
+/* responsividade do chatbot */
+
+/* tablets */
+@media (max-width: 768px) {
+
+    .chat-container-interno {
+        right: 15px;
+        bottom: 95px;
+
+        width: min(380px, calc(100vw - 30px));
+        height: min(520px, calc(100dvh - 120px));
+    }
+}
+
+/* celulares */
+@media (max-width: 480px) {
+
+    .chat-container-interno {
+        right: 10px;
+        bottom: 85px;
+
+        width: calc(100vw - 20px);
+        height: min(520px, calc(100dvh - 105px));
+
+        border-radius: 16px;
+    }
+
+    .chat-header {
+        padding: 14px 16px;
+    }
+
+    .chat-mensagens {
+        padding: 14px;
+        gap: 12px;
+    }
+
+    .msg {
+        font-size: 12px;
+    }
+
+    .btn-opcao,
+    .btn-navegacao {
+        padding: 10px;
+        font-size: 12px;
     }
 }

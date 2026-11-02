@@ -50,7 +50,7 @@
                 </p>
 
                 <div class="hero-assistente">
-                    <a href="#chatbot" class="hero-assistente-icone">
+                    <a href="#" onclick="toggleChat(); return false;" class="hero-assistente-icone">
                         <i class="fa-regular fa-message"></i>
                     </a>
 
@@ -122,7 +122,9 @@
                 Entenda tudo antes de fazer o seu orçamento, com o nosso assistente virtual!
             </p>
 
-            <a href="#chatbot" class="button-chatbot">Navegar pelo menu interativo</a>
+            <a href="#" onclick="toggleChat(); return false;" class="button-chatbot">
+                Navegar pelo menu interativo
+            </a>
         </section>
 
         <section class="horario-inicio">
@@ -144,9 +146,25 @@
         <p>&copy; 2026 Ótica Renew. Todos os direitos reservados.</p>
     </footer>
 
-    <a href="#chatbot" class="chatbot-flutuante">
+    <!-- Botão flutuante -->
+    <a href="#" onclick="toggleChat(); return false;" class="chatbot-flutuante">
         <img src="{% static 'images/icon/chatbot-renew-icone.png' %}" alt="Assistente virtual">
     </a>
+
+    <!-- Janela do chatbot -->
+    <div class="chat-container-interno" id="chat-caixa">
+
+        <div class="chat-header">
+            <span>Assistente Ótica Renew</span>
+                <button onclick="toggleChat()">✕</button>
+        </div>
+
+            <div id="chat-mensagens" class="chat-mensagens">
+        </div>
+
+    </div>   
+
+    <script src="{% static 'js/chatbot.js' %}"></script>
 
 </body>
 </html>

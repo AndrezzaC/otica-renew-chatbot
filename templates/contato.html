@@ -54,7 +54,10 @@
                     Quer tirar dúvidas sobre tipos de grau, materiais ou exames agora mesmo?
                     Acesse nosso assistente virtual interativo!
                 </p>
-                <a href="{% url 'inicio' %}#chatbot" class="button-chatbot">Usar Assistente Virtual</a>
+
+                <a href="#" onclick="toggleChat(); return false;" class="button-chatbot">
+                    Abrir Assistente Virtual
+                </a>
             </div>
         </section>
 
@@ -132,9 +135,20 @@
         <p>&copy; 2026 Ótica Renew. Todos os direitos reservados.</p>
     </footer>
 
-    <a href="{% url 'inicio' %}#chatbot" class="chatbot-flutuante">
+    <a href="#" onclick="toggleChat(); return false;" class="chatbot-flutuante">
         <img src="{% static 'images/icon/chatbot-renew-icone.png' %}" alt="Assistente virtual">
     </a>
+
+    <div class="chat-container-interno" id="chat-caixa">
+        <div class="chat-header">
+            <span>Assistente Ótica Renew</span>
+            <button onclick="toggleChat()">✕</button>
+        </div>
+
+        <div id="chat-mensagens" class="chat-mensagens"></div>
+    </div>
+
+    <script src="{% static 'js/chatbot.js' %}"></script>
 
 </body>
 </html>
