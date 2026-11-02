@@ -1,7 +1,7 @@
 
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models import Informacao
+from .models import Categoria, Informacao
 
 
 # Exibe a página inicial do site.
@@ -41,3 +41,35 @@ def consultar_informacao(request, titulo):
         'categoria': informacao.categoria.nome,
         'resposta': informacao.resposta
     })
+
+# Retorna as categorias principais do chatbot.
+def listar_categorias_principais(request):
+    categorias = Categoria.objects.exclude(
+        nome="Mensagens do chatbot"
+    ).values_list("nome", flat=True)
+
+    return JsonResponse({
+        "status": "sucesso",
+        "categorias": list(categorias)
+    })
+
+
+# Retorna os tópicos cadastrados em uma categoria.
+def listar_itens_por_categoria(request, nome_categoria):
+    try:
+        categoria = Categoria.objects.get(nome=nome_categoria)
+
+        informacoes = Informacao.objects.filter(
+            categoria=categoria
+        ).values("titulo", "resposta")
+
+        return JsonResponse({
+            "status": "sucesso",
+            "itens": list(informacoes)
+        })
+
+    except Categoria.DoesNotExist:
+        return JsonResponse({
+            "status": "erro",
+            "mensagem": "Categoria não encontrada."
+        }, status=404)
