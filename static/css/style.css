@@ -1,3 +1,4 @@
+/* Cores principais usadas no site */
 :root {
     --laranja-principal: #F28C18;
     --laranja-claro-principal: #F7B65A;
@@ -11,12 +12,14 @@
     --branco: #FFFFFF;
 }
 
+/* Padroniza medidas e remove espaçamentos padrão do navegador */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+/* Define o fundo e a fonte padrão das páginas */
 body {
     background-color: var(--cor-fundo);
     background-image: url("../images/imagens/background-renew.png");
@@ -28,12 +31,14 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
+/* Mantém os títulos com a fonte de destaque do projeto */
 h1,
 h2,
 h3 {
     font-family: 'Poppins', sans-serif;
 }
 
+/* Cabeçalho fixo com efeito de transparência */
 header{
     display: flex;
     align-items: center;
@@ -68,12 +73,14 @@ header h1 img:hover{
     transform: translateY(-2px);
 }
 
+/* Limita a largura do conteúdo e centraliza a página */
 main {
     width: 92%;
     max-width: 1500px;
     margin: 30px auto;
 }
 
+/* Organiza os links do menu na horizontal */
 nav ul {
     display: flex;
     list-style: none;
@@ -93,6 +100,7 @@ nav a:hover {
     transform: translateY(-3px);
 }
 
+/* Camada clara sobre o fundo para melhorar a leitura */
 body::before{
     content: "";
     position: fixed;
@@ -102,8 +110,9 @@ body::before{
     z-index: -1;
 }
 
-/* home */
+/* Página inicial */
 
+/* Área principal de apresentação da página inicial */
 .hero-inicio {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -131,6 +140,7 @@ body::before{
     padding: 6px;
 }
 
+/* Ajusta a imagem e suaviza a transição na lateral */
 .hero-imagem img {
     width: 100%;
     height: 100%;
@@ -176,6 +186,7 @@ body::before{
     color: var(--laranja-principal);
 }
 
+/* Apresentação do acesso ao assistente virtual */
 .hero-assistente {
     display: flex;
     align-items: center;
@@ -238,6 +249,7 @@ body::before{
     font-size: 32px;
 }
 
+/* Distribui os cards de soluções em uma linha */
 .solucoes-cards {
     display: flex;
     gap: 20px;
@@ -306,6 +318,7 @@ body::before{
 }
 
 
+/* Seção que apresenta o chatbot na página inicial */
 .chatbot-secao {
     margin-top: 35px;
     padding: 25px 35px 35px;  
@@ -400,34 +413,36 @@ body::before{
     transform: translateY(-2px);
 }
 
+/* Botão que abre e fecha o chatbot */
 .chatbot-flutuante {
     position: fixed;
     right: 25px;
     bottom: 25px;
-
     width: 75px;
     height: 75px;
 
+    /* Fundo branco translúcido quando o chatbot está fechado */
     background-color: rgba(255, 255, 255, 0.201);
+    border: none;
     border-radius: 50%;
+
+    /* Efeito de vidro fosco */
+    backdrop-filter: blur(8px);
 
     display: flex;
     align-items: center;
     justify-content: center;
-
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.10);
-    backdrop-filter: blur(8px);
 
     z-index: 1000;
 
     transition: 0.2s;
 }
 
-/* Estado do botão quando o chatbot está aberto */
+/* Reduz levemente o ícone quando a janela está aberta */
 .chatbot-flutuante.ativo {
     transform: scale(0.88);
-    background-color: rgba(242, 140, 24, 0.35);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+    background-color: transparent;
+    box-shadow: none;
 }
 
 /* Efeito ao passar o mouse quando aberto */
@@ -445,8 +460,9 @@ body::before{
     transform: translateY(-4px);
 }
 
-/* sobre */
+/* Página Sobre */
 
+/* Cartões de conteúdo com fundo translúcido */
 .sobre-historia,
 .diferencial-exame,
 .nossos-servicos,
@@ -566,7 +582,7 @@ body::before{
     margin-right: auto;
 }
 
-/* Produtos */
+/* Página de produtos */
 
 .produtos-secao {
     margin-top: 35px;
@@ -586,6 +602,7 @@ body::before{
     margin-bottom: 20px;
 }
 
+/* Organiza os produtos em três colunas */
 .produtos-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -676,7 +693,7 @@ body::before{
     margin-top: 12px;
 }
 
-/* contato */
+/* Página de contato */
 
 .contato-introducao {
     margin-bottom: 30px;
@@ -762,6 +779,7 @@ body::before{
     margin-bottom: 25px;
 }
 
+/* Organiza os canais de atendimento em colunas */
 .canais-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -879,11 +897,11 @@ footer p {
     margin: 0;
 }
 
-/* responsividade */
+/* Ajustes gerais para telas menores */
 
 @media (max-width: 768px) {
 
-    body {
+        body {
         overflow-x: hidden;
     }
 
@@ -1030,7 +1048,7 @@ footer p {
     }
 }
 
-/* chatbot */
+/* Estilos da janela e dos elementos internos do chatbot */
 
 /* Janela principal */
 .chat-container-interno {
@@ -1042,8 +1060,11 @@ footer p {
     height: 520px;
     max-height: calc(100vh - 140px);
 
-    background-color: var(--cor-fundo-secundario);
-    border: 1px solid rgba(242, 140, 24, 0.25);
+    /* Deixa o fundo alaranjado e mais transparente */
+    background-color: rgba(255, 221, 173, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border-radius: 20px;
 
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
@@ -1092,7 +1113,7 @@ footer p {
     cursor: pointer;
 }
 
-/* Área das mensagens */
+/* Área que recebe as mensagens e permite rolar a conversa */
 .chat-mensagens {
     flex: 1;
     display: flex;
@@ -1103,7 +1124,7 @@ footer p {
     overflow-y: auto;
 }
 
-/* Balões de mensagem */
+/* Balões separados para as mensagens do bot e do usuário */
 .msg {
     display: flex;
     flex-direction: column;
@@ -1136,7 +1157,7 @@ footer p {
     color: var(--branco);
 }
 
-/* Opções do chatbot */
+/* Agrupa as opções exibidas em cada etapa da conversa */
 .chat-opcoes {
     display: flex;
     flex-direction: column;
@@ -1146,7 +1167,7 @@ footer p {
     margin-top: 12px;
 }
 
-/* Botões das categorias */
+/* Botões usados para escolher uma categoria ou assunto */
 .btn-opcao {
     width: 100%;
     padding: 10px 12px;
@@ -1170,7 +1191,7 @@ footer p {
     background-color: #FFF8EE;
 }
 
-/* Botões de navegação */
+/* Botões para voltar ou navegar entre as opções */
 .btn-navegacao {
     width: 100%;
     padding: 9px 12px;
@@ -1281,7 +1302,7 @@ footer p {
     }
 }
 
-/* responsividade do chatbot */
+/* Ajusta o tamanho e a posição do chatbot em telas menores */
 
 /* tablets */
 @media (max-width: 768px) {
