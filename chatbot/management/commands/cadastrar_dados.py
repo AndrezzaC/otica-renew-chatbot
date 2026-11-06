@@ -1,13 +1,19 @@
-
+# Importa a classe base do Django para criar comandos personalizados.
 from django.core.management.base import BaseCommand
+
+# Importa os modelos que representam as categorias e informações do chatbot.
 from chatbot.models import Categoria, Informacao
 
 
+# Cria um comando personalizado que pode ser executado pelo terminal do Django.
 class Command(BaseCommand):
 
+    # Método principal executado quando o comando é chamado.
+    # O Django executa esse método automaticamente.
     def handle(self, *args, **kwargs):
 
-        # Categorias e introduções
+        # Dicionário que armazena as categorias do chatbot e seus textos de introdução.
+        # Cada categoria agrupa um assunto, como lentes, tratamentos e materiais.
         categorias = {
             "Conhecer as lentes": (
                 "Conheça os tipos de lentes disponíveis e suas "
@@ -46,20 +52,29 @@ class Command(BaseCommand):
             "Mensagens do chatbot": "",
         }
 
+        # Dicionário auxiliar para guardar os objetos de categoria criados ou encontrados.
+        # Assim, podemos reutilizar essas categorias ao cadastrar as informações.
         objetos_categoria = {}
 
+        # Percorre o dicionário, obtendo o nome e a introdução de cada categoria.
         for nome, introducao in categorias.items():
+
+            # Procura uma categoria pelo nome.
+            # Se ela já existir, atualiza seus dados; se não existir, cria uma nova.
+            # update_or_create evita criar categorias duplicadas a cada execução.
             categoria, _ = Categoria.objects.update_or_create(
                 nome=nome,
                 defaults={"introducao": introducao}
             )
 
+            # Guarda a categoria encontrada ou criada para utilizá-la depois.
             objetos_categoria[nome] = categoria
 
-        # Informações e opções do chatbot
+        # Lista com os conteúdos que serão cadastrados no banco de dados.
+        # Cada item representa uma mensagem ou opção disponível no chatbot.
         dados = [
 
-            # Mensagens do chatbot
+            # Mensagens gerais utilizadas durante a conversa.
             {
                 "categoria": "Mensagens do chatbot",
                 "titulo": "bem_vindo",
@@ -89,7 +104,7 @@ class Command(BaseCommand):
                 ),
             },
 
-            # Conhecer as lentes
+            # Conteúdos relacionados aos diferentes tipos de lentes.
             {
                 "categoria": "Conhecer as lentes",
                 "titulo": "lentes_visao_simples",
@@ -153,7 +168,8 @@ class Command(BaseCommand):
                 ),
             },
 
-            # Tipos de grau
+            # Submenu com informações sobre os tipos de grau.
+            # A chave "pai" indica que essas informações pertencem a um menu principal.
             {
                 "categoria": "Conhecer as lentes",
                 "pai": "lentes_tipos_grau",
@@ -211,7 +227,7 @@ class Command(BaseCommand):
                 ),
             },
 
-            # Campo de visão
+            # Informações que explicam a diferença entre os campos de visão.
             {
                 "categoria": "Campo de visão",
                 "titulo": "campo_visao_convencional",
@@ -256,7 +272,7 @@ class Command(BaseCommand):
                 ),
             },
 
-            # Conhecer os tratamentos
+            # Conteúdos sobre os tratamentos aplicados às lentes.
             {
                 "categoria": "Conhecer os tratamentos",
                 "titulo": "tratamentos_filtro_antirreflexo",
@@ -311,7 +327,7 @@ class Command(BaseCommand):
                 ),
             },
 
-            # Conhecer os materiais
+            # Conteúdos sobre os materiais utilizados na fabricação das lentes.
             {
                 "categoria": "Conhecer os materiais",
                 "titulo": "materiais_resina",
@@ -348,7 +364,7 @@ class Command(BaseCommand):
                 ),
             },
 
-            # Exame de vista
+            # Informação sobre os dias e horários disponíveis para o exame de vista.
             {
                 "categoria": "Exame de vista",
                 "titulo": "exame_horarios",
@@ -364,7 +380,7 @@ class Command(BaseCommand):
                 ),
             },
 
-            # Informações sobre a Ótica Renew
+            # Informações institucionais sobre a Ótica Renew.
             {
                 "categoria": "Informações sobre a Ótica Renew",
                 "titulo": "informacoes_horarios",
@@ -406,7 +422,8 @@ class Command(BaseCommand):
                 ),
             },
 
-            # Quero fazer orçamento
+            # Fluxo de atendimento para quem deseja solicitar um orçamento.
+            # O chatbot não calcula valores; direciona o usuário para a equipe da loja.
             {
                 "categoria": "Quero fazer orçamento",
                 "titulo": "orcamento_positiva",
@@ -427,7 +444,8 @@ class Command(BaseCommand):
             },
         ]
 
-        # Remove os tipos de grau duplicados que estão sem um menu pai
+        # Remove os tipos de grau duplicados que estão sem um menu pai.
+        # Isso evita manter registros antigos fora da estrutura de submenu.
         Informacao.objects.filter(
             categoria=objetos_categoria["Conhecer as lentes"],
             titulo__in=[
@@ -439,19 +457,34 @@ class Command(BaseCommand):
             pai__isnull=True
         ).delete()
 
-        # Cadastra ou atualiza as informações
+        # Percorre todos os conteúdos definidos na lista "dados".
+        # Cada item será cadastrado ou atualizado no banco.
         for item in dados:
+
+            # Recupera a categoria correspondente ao conteúdo atual.
+            # O nome é usado como chave no dicionário criado anteriormente.
             categoria = objetos_categoria[item["categoria"]]
 
+            # Por padrão, o conteúdo não terá um item pai.
+            # Essa variável será preenchida somente para os submenus.
             pai = None
 
+            # Verifica se o item possui a chave "pai".
+            # Se possuir, significa que ele é uma opção dentro de outro menu.
             if "pai" in item:
+
+                # Busca no banco a informação que será o menu principal.
+                # pai__isnull=True garante que seja um item principal,
+                # e não outro submenu.
                 pai = Informacao.objects.get(
                     categoria=categoria,
                     titulo=item["pai"],
                     pai__isnull=True
                 )
 
+            # Cria ou atualiza a informação no banco de dados.
+            # A combinação de categoria, título e pai identifica o registro.
+            # Se já existir, atualiza a resposta; caso contrário, cria um novo.
             Informacao.objects.update_or_create(
                 categoria=categoria,
                 titulo=item["titulo"],
@@ -461,7 +494,8 @@ class Command(BaseCommand):
                 }
             )
 
-        # Remove as antigas introduções cadastradas como opções
+        # Lista de títulos antigos que não devem mais permanecer no banco.
+        # Essa limpeza evita que opções de versões anteriores continuem aparecendo.
         titulos_antigos = [
             "lentes_introducao",
             "tratamentos_introducao",
@@ -473,10 +507,14 @@ class Command(BaseCommand):
             "lentes_atigmatismo"
         ]
 
+        # Localiza e exclui os registros que possuem algum dos títulos antigos.
         Informacao.objects.filter(
             titulo__in=titulos_antigos
         ).delete()
 
+        # Exibe uma mensagem de sucesso no terminal após finalizar o cadastro.
+        # self.stdout.write escreve a mensagem no terminal.
+        # self.style.SUCCESS aplica a formatação visual de sucesso do Django.
         self.stdout.write(
             self.style.SUCCESS(
                 "Banco populado e informações atualizadas com sucesso!"
